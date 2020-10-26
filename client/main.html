@@ -1,0 +1,64 @@
+<head>
+  <title>cryptoavatars-example-meteor</title>
+</head>
+
+<body>
+  {{> input}}<br><br>
+  {{> requestCryptoavatarsApi}}<br><br>
+  {{> requestOpenseaApi}}<br><br>
+  {{> requestBlockchain}}<br><br>
+  {{> response}}
+</body>
+<template name="input">
+  TokenId: <input type="number" min=0 id="tokenId" value="0"><br>
+  Address: <input type="text" id="address" value=""><br>
+</template>
+<template name="requestCryptoavatarsApi">
+
+  <fieldset>
+    <legend>Get Info with Cryptoavatars server API</legend>
+    <button type="button" name="button" id="getTokenMetadataWithAPI">Get token metadata with API</button>
+    <button type="button" name="button" id="getTokenOwnerWithAPI">Get token owner with API</button>
+    <button type="button" name="button" id="getCreatedByWithAPI">Get tokens created by address with API</button>
+    <button type="button" name="button" id="getOwnedByWithAPI">Get tokens owned by address with API</button>
+  </fieldset>
+</template>
+
+<template name="requestOpenseaApi">
+
+  <fieldset>
+    <legend>Get Info with Opensea API</legend>
+    <button type="button" name="button" id="getTokenMetadataWithOpensea">Get token metadata with Opensea</button>
+    <button type="button" name="button" id="getTokensFromOpenseaAPI">Query tokens with Opensea</button>
+  </fieldset>
+</template>
+
+<template name="requestBlockchain">
+  <fieldset>
+    <legend>Get Info with Cryptoavatars ETH contract</legend>
+    {{#if web3Status.init}}
+      Network: {{web3Status.network}}<br>
+
+      {{#if web3Status.address}}
+        Address: {{web3Status.address}}<br>
+      {{else}}
+        <button id="connectwallet">Connect eth wallet</button><br>
+      {{/if}}
+
+    {{else}}
+      <p>Metamask not detected, install Metamask extension from: <a href="https://metamask.io/">https://metamask.io/</a></p>
+    {{/if}}
+    <button type="button" name="button" id="getTokenMetadataWithETH">Get token metadata with ETH</button>
+    <button type="button" name="button" id="getTokenOwnerWithETH">Get token owner with ETH</button>
+    <button type="button" name="button" id="getTokenCreatorWithETH">Get token creator with ETH</button>
+  </fieldset>
+</template>
+
+<template name="response">
+  <fieldset>
+    <legend>Response</legend>
+    {{#if response}}
+      {{response}}
+    {{/if}}
+  </fieldset>
+</template>
